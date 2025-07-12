@@ -1,23 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-
+import { Navbar } from "@/components/navbar";
+import { ThemeProvider } from "next-themes";
+import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
-
-const stripePromise = loadStripe('pk_test_6pRNASCoBOKtIshFeQd4XMUh');
-
-const options = {
-  mode: 'payment',
-  amount: 1099,
-  currency: 'usd',
-  // Fully customizable with appearance API.
-  appearance: {
-    /*...*/
-  },
-};
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -30,11 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Elements stripe={stripePromise} options={options}>
+    <html lang="en" className="size-full">
+      <body className={cn(inter.className,'bg-black relative size-full')}>
+        <ThemeProvider defaultTheme="dark">
           {children}
-        </Elements>
+        </ThemeProvider>
       </body>
     </html>
   );
